@@ -1,0 +1,37 @@
+<div *ngIf="(loadingService.loading$ | async)">
+  <div class="loading-overlay">
+    <div class="loading-spinner">
+      <img src="assets/loading.gif" alt="Loading...">
+    </div>
+  </div>
+</div>
+
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>{{ title }}</h1>
+</mat-toolbar>
+
+<mat-sidenav-container autosize>
+  <mat-sidenav
+    #sidenav
+    style="background-color: #9c9d9c;"
+    [ngClass]="{ 'expanded': !isCollapsed }"
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="!isMobile || !isCollapsed">
+
+    <mat-nav-list>
+      <a mat-list-item *ngFor="let item of nav" [routerLink]="item.path" (click)="closeSidenav()">
+        <span class="entry">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span *ngIf="!isCollapsed">{{ item.name }}</span>
+        </span>
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet name="inner"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
