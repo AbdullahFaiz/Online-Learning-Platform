@@ -13,12 +13,18 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { StudentComponent } from './student/student.component';
+import { CourseComponent } from './course/course.component';
+import { AdminComponent } from './admin/admin.component';
+import { EnrollmentComponent } from './enrollment/enrollment.component';
 
 
 @NgModule({
   declarations: [
     InnerComponent,
-    StudentComponent
+    StudentComponent,
+    CourseComponent,
+    EnrollmentComponent,
+    AdminComponent
   ],
   imports: [
     CommonModule,

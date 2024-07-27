@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AdminService {
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -24,7 +24,7 @@ constructor(
     ) { }
 
 //api URL
-apiUrl = "http://localhost:8080"+"/student";
+apiUrl = "http://localhost:8080"+"/api/admins";
 
 // HTTP request error handling
 private handleError(error: HttpErrorResponse) {
@@ -36,29 +36,29 @@ private handleError(error: HttpErrorResponse) {
     return throwError(() => 'Something bad happened; please try again later.');
 }
 
-create(user : User){
-    return this.httpClient.post(this.apiUrl, user, this.httpOptions).pipe(
+create(admin : User){
+    return this.httpClient.post(this.apiUrl, admin, this.httpOptions).pipe(
         catchError(this.handleError)
     );
 }
 
-update(user : any){
-    return this.httpClient.put(this.apiUrl+ '/' + user.id, user, this.httpOptions).pipe(
+update(admin : User){
+    return this.httpClient.put(this.apiUrl+ '/' + admin.id, admin, this.httpOptions).pipe(
         catchError(this.handleError)
     );
 }
 
-delete(userId : any){
-    return this.httpClient.delete(this.apiUrl + '/' + userId, this.httpOptions).pipe(
+delete(adminId : any){
+    return this.httpClient.delete(this.apiUrl + '/' + adminId, this.httpOptions).pipe(
         catchError(this.handleError)
     );
 }
 
-getAllUser(page: number = 0, size: number = 10): Observable<any> {
-  const params = new HttpParams()
-    .set('page', page.toString())
-    .set('size', size.toString());
-  return this.httpClient.get<any>(this.apiUrl, { params });
+getAllAdmin() {
+  return this.httpClient.get<User[]>(this.apiUrl, this.httpOptions)
+      .pipe(
+          catchError(this.handleError)
+      );
 }
 
 }

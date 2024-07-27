@@ -6,6 +6,7 @@ import { TokenStorageService } from './token-storage.service';
 import { LoginRequest } from '../models/login-request.model';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+import { Student } from '../models/student.model';
 
 const apiUrl = 'http://localhost:8080/api/auth';
 
@@ -52,13 +53,23 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean  {
-    // Check for token existence or validity
-    const token = localStorage.getItem('token');
+    const token = this.tokenStorageService.getToken();
+    console.log(token);
     return !!token;
   }
   getUser(): Observable<User> {
-    const token = localStorage.getItem('token'); // Replace with your token storage
+
+    const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    return this.httpClient.get<User>(apiUrl, { headers });
+    console.log(headers);
+  console.log(token);
+    return this.httpClient.get<User>(apiUrl+"/me", { headers });
+  }
+
+  getStudent(): Observable<Student> {
+
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.httpClient.get<Student>(apiUrl+"/student", { headers });
   }
 }

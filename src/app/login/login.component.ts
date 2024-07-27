@@ -35,7 +35,9 @@ export class LoginComponent {
             // Successful login
             console.log('Login successful', res);
             this.tokenStorageService.saveToken(res.token);
-            this.router.navigate(['/lms']);
+            this.router.navigate(['/app/home']);
+            console.log('navi', res);
+
           },
           (error) => {
             console.error('Login failed', error);

@@ -1,82 +1,72 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-// import { Student } from '../models/student.model';
+// import { Admin } from '../models/admin.model';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
 import { Role } from '../../role';
-import { Student } from '../../models/student.model';
-import { StudentService } from '../../services/student.service';
+import { AdminService } from '../../services/admin.service';
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.component.html',
-  styleUrl: './student.component.scss'
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrl: './admin.component.scss'
 })
-export class StudentComponent {
+export class AdminComponent {
   constructor(private fb: FormBuilder,
-    private studentService: StudentService,
+    private adminService: AdminService,
     private router: Router,) {}
 
-    students: Student[] = [];
-    selectedStudent: User | null = null;
-    studentFormAdd: FormGroup;
-    studentFormEdit: FormGroup;
+    admins: User[] = [];
+    selectedAdmin: User | null = null;
+    adminFormAdd: FormGroup;
+    adminFormEdit: FormGroup;
     view : String = "default";
 
     ngOnInit() {
-      this.getStudents();
+      this.getAdmins();
       this.initForm();
     }
 
     initForm(){
-      this.studentFormAdd = new FormGroup({
+      this.adminFormAdd = new FormGroup({
         'id': new FormControl(null),
-        'name': new FormControl(null, [Validators.required]),
-        'age': new FormControl(null, Validators.required),
         'username': new FormControl(null, Validators.required),
         'password': new FormControl(null,Validators.required),
         'email': new FormControl(null, [Validators.required, Validators.email]),
         'role': new FormControl(Role.ROLE_STUDENT)
       });
-      this.studentFormEdit = new FormGroup({
+      this.adminFormEdit = new FormGroup({
         'id': new FormControl(null),
-        'name': new FormControl(null, [Validators.required]),
-        'age': new FormControl(null, Validators.required),
         'username': new FormControl(null, Validators.required),
         'password': new FormControl(null,Validators.required),
         'email': new FormControl(null, [Validators.required, Validators.email]),
-        'role': new FormControl(Role.ROLE_STUDENT)
+        'role': new FormControl(Role.ROLE_ADMIN)
       });
     }
 
-    getStudents() {
-      this.studentService.getAllStudent().subscribe(students => {
-        this.students = students;
+    getAdmins() {
+      this.adminService.getAllAdmin().subscribe(admins => {
+        this.admins = admins;
 
       });
     }
 
-    createStudent() {
-      if(this.studentFormAdd.valid){
-        const user: User = {
-          username: this.studentFormAdd.value.username,
-          password: this.studentFormAdd.value.password,
-          email: this.studentFormAdd.value.email,
-          role: Role.ROLE_STUDENT
+    createAdmin() {
+      if(this.adminFormAdd.valid){
+        const admin: User = {
+          username: this.adminFormAdd.value.username,
+          password: this.adminFormAdd.value.password,
+          email: this.adminFormAdd.value.email,
+          role: Role.ROLE_ADMIN
         };
-        const student: Student = {
-          id: this.studentFormAdd.value.id || null,
-          name: this.studentFormAdd.value.name,
-          age: this.studentFormAdd.value.age,
-          user: user,
-        };
-        this.studentService.create(student).subscribe((response) => {
+
+        this.adminService.create(admin).subscribe((response) => {
           setTimeout(() => { }, 1500);
 
 
             Swal.fire({
               title: "Success",
-              text: "Student Created Successfully!",
+              text: "Admin Created Successfully!",
               icon: "success"
             });
 
@@ -86,7 +76,7 @@ export class StudentComponent {
         error => {
           Swal.fire({
             title: "Failed",
-            text: "Student Creation Unsuccessful!",
+            text: "Admin Creation Unsuccessful!",
             icon: "error"
           });
         });
@@ -100,27 +90,23 @@ export class StudentComponent {
 
     }
 
-    updateStudent() {
-      if(this.studentFormEdit.valid){
-        const user: User = {
-          username: this.studentFormEdit.value.username,
-          password: this.studentFormEdit.value.password,
-          email: this.studentFormEdit.value.email,
-          role: Role.ROLE_STUDENT
-        };
-        const student: Student = {
-          id: this.studentFormEdit.value.id || null,
-          name: this.studentFormEdit.value.name,
-          age: this.studentFormEdit.value.age,
-          user: user,
+    updateAdmin() {
+      if(this.adminFormEdit.valid){
+        const admin: User = {
+          id: this.adminFormEdit.value.id,
+          username: this.adminFormEdit.value.username,
+          password: this.adminFormEdit.value.password,
+          email: this.adminFormEdit.value.email,
+          role: Role.ROLE_ADMIN
         };
 
-        this.studentService.update(student).subscribe((response) => {
+
+        this.adminService.update(admin).subscribe((response) => {
           setTimeout(() => { }, 1500);
 
             Swal.fire({
               title: "Success",
-              text: "Student Updated Successfully!",
+              text: "Admin Updated Successfully!",
               icon: "success"
             });
             this.changeView("default",null)
@@ -128,7 +114,7 @@ export class StudentComponent {
          error => {
           Swal.fire({
             title: "Failed",
-            text: "Student Update Unsuccessful!",
+            text: "Admin Update Unsuccessful!",
             icon: "error"
           });
         });
@@ -143,11 +129,11 @@ export class StudentComponent {
       }
     }
 
-    deleteStudent(id: number) {
-      this.studentService.delete(id).subscribe((response) => {
+    deleteAdmin(id: number) {
+      this.adminService.delete(id).subscribe((response) => {
         Swal.fire({
           title: "Success",
-          text: "Student Updated Successfully!",
+          text: "Admin Updated Successfully!",
           icon: "success"
         });
         this.changeView("default",null)
@@ -156,7 +142,7 @@ export class StudentComponent {
         error => {
          Swal.fire({
            title: "Failed",
-           text: "Student Update Unsuccessful!",
+           text: "Admin Update Unsuccessful!",
            icon: "error"
          });
        });
@@ -165,17 +151,15 @@ export class StudentComponent {
     changeView(view,data){
       this.view = view
       if(view == "add"){
-        this.studentFormAdd.reset();
+        this.adminFormAdd.reset();
       }else if (view == "edit"){
-        this.studentFormEdit.reset();
-        this.studentFormEdit.patchValue({
+        this.adminFormEdit.reset();
+        this.adminFormEdit.patchValue({
 
           'id'  : data.id,
-          'name'  : data.name,
-          'age'  : data.age,
-          'username'  : data.user.username,
-          'email'  : data.user.email,
-          'password'  : data.user.password
+          'username'  : data.username,
+          'email'  : data.email,
+          'password'  : data.password
 
         });
       }else if(this.view === 'delete'){
@@ -191,20 +175,20 @@ export class StudentComponent {
           confirmButtonText: "Yes, delete it!"
         }).then((result) => {
 
-            this.studentFormEdit.reset();
+            this.adminFormEdit.reset();
             // this.authorEditForm.reset();
             this.view = "default";
             console.log("then");
             if (result) {
                 console.log("confirm");
 
-                this.deleteStudent(data["id"]);
+                this.deleteAdmin(data["id"]);
             }
         });
 
       }else{
         this.view = "default";
-        this.getStudents();
+        this.getAdmins();
       }
     }
 

@@ -7,10 +7,13 @@ const routes: Routes = [
 {
   path: '',
   component: LoginComponent
+},
+{
+  path: 'login',
+  component: LoginComponent
 },{
-  path: 'lms',component: InnerComponent, children: [{
-    path: '', loadChildren: () => import('./inner/inner.module').then(m => m.InnerModule)}],
-    outlet: 'inner'
+  path: 'app',component: InnerComponent, children: [{
+    path: '', loadChildren: () => import('./inner/inner.module').then(m => m.InnerModule)}]
 }
 ];
 

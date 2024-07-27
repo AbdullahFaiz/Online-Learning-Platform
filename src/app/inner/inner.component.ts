@@ -20,8 +20,8 @@ export class InnerComponent {
   isCollapsed = false;
   user: User | null = null;
 
-  nav = [{name:"Home",path:"/home",icon:"account_balance"},{name:"Student",path:"/student",icon:"account_box"},
-    {name:"Course",path:"/course",icon:"book"},{name:"Admin",path:"/admin",icon:"account_circle"},{name:"Enrollment",path:"/enrollment",icon:"card_membership"}]
+  nav = [{name:"Home",path:"/app/home",icon:"account_balance"},{name:"Student",path:"/app/student",icon:"account_box"},
+    {name:"Course",path:"/app/course",icon:"book"},{name:"Admin",path:"/app/admin",icon:"account_circle"},{name:"Enrollment",path:"/app/enrollment",icon:"card_membership"}]
 
   constructor(private observer: BreakpointObserver,
     public loadingService: LoadingService,
@@ -29,6 +29,7 @@ export class InnerComponent {
   ) {}
 
   ngOnInit() {
+    console.log("LMS")
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       this.isMobile = screenSize.matches;
       this.isCollapsed = this.isMobile;
@@ -37,21 +38,26 @@ export class InnerComponent {
       (res) => {
         // Successful login
         this.user = res;
+        console.log(this.user);
+        if(this.user?.role === Role.ROLE_ADMIN){
+          this.nav = [{name:"Student",path:"app/student",icon:"account_box"},
+            {name:"Course",path:"/app/course",icon:"book"},{name:"Admin",path:"/app/admin",icon:"account_circle"},]
+          this.router.navigate(['/app/student']);
+
+        }else if (this.user?.role == Role.ROLE_STUDENT){
+          this.nav = [{name:"Enrollment",path:"/app/enrollment",icon:"card_membership"}]
+          this.router.navigate(['/app/enrollment']);
+
+        }
       },
       (error) => {
         this.authService.logout();
       }
     );
-    if(this.user?.role == Role.ROLE_ADMIN){
-      this.nav = [{name:"Student",path:"/student",icon:"account_box"},
-        {name:"Course",path:"/course",icon:"book"},{name:"Admin",path:"/admin",icon:"account_circle"},{name:"Enrollment",path:"/enrollment",icon:"card_membership"}]
-      this.router.navigate(['/student']);
+    console.log(this.user);
+    console.log(this.user?.role);
+    console.log(this.user?.role === Role.ROLE_ADMIN);
 
-    }else if (this.user?.role == Role.ROLE_STUDENT){
-      this.nav = [{name:"Home",path:"/home",icon:"account_balance"}]
-      this.router.navigate(['/home']);
-
-    }
   }
 
   toggleMenu() {

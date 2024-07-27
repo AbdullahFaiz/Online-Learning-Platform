@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-lg-6 p-2">
+      <div class="card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-sm-8">
+                      <h5 class="card-title">Enrolled</h5>
+                  </div>
+                  <div class="col-sm-4" style="text-align: right;">
+
+                  </div>
+              </div>
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th scope="col">Course</th>
+                              <th scope="col">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let row of enrollments">
+                              <td>{{row.course.title}}</td>
+                              <td>
+                                  <!-- <button class="btn btn-sm btn-outline-warning mr-2" style="margin-right: 10px;" (click)="updateEnrollment(row.course.id ?? null)">Enroll</button> -->
+                                  <button class="btn btn-sm btn-outline-danger" (click)='deleteEnrollment(row.id ?? null)'>Remove</button>
+
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-lg-6 p-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h5 class="card-title">Available</h5>
+                </div>
+                <div class="col-sm-4" style="text-align: right;">
+
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Course</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of availableCourses">
+                            <td>{{row.title}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-warning mr-2" style="margin-right: 10px;" (click)="updateEnrollment(row.id ?? null)">Enroll</button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

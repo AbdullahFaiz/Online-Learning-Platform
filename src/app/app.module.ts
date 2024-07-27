@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { LoadingInterceptor } from './interceptor/loading.interceptor';
 import { LoginComponent } from './login/login.component';
 import { InnerModule } from './inner/inner.module';
+import { AuthInterceptor } from './interceptor/auth-interceptor.interceptor';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { InnerModule } from './inner/inner.module';
   ],
   providers: [
     provideAnimationsAsync(),
-    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

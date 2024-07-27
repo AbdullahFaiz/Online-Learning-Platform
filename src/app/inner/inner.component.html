@@ -10,7 +10,7 @@
   <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
     <mat-icon>menu</mat-icon>
   </button>
-  <h1>{{ title }}</h1>
+  <h1>{{ title }} - {{this.user?.role}}</h1>
 </mat-toolbar>
 
 <mat-sidenav-container autosize>
@@ -32,6 +32,6 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <router-outlet name="inner"></router-outlet>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

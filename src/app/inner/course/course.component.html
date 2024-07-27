@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-lg-12" *ngIf="view == 'default'">
+      <div class="card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <h5 class="card-title">Course</h5>
+                  </div>
+                  <div class="col-sm-6 float-right text-right" style="text-align: right;">
+                      <button class="btn btn-outline-primary float-right" (click)="changeView('add',null)"> Add New </button>
+
+                  </div>
+              </div>
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Title</th>
+                              <th scope="col">Description</th>
+                              <th scope="col">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let row of courses">
+                              <td>{{row.id}}</td>
+                              <td>{{row.title}}</td>
+                              <td>{{row.description}}</td>
+                              <td>
+                                  <button class="btn btn-sm btn-outline-warning mr-2" style="margin-right: 10px;" (click)="changeView('edit',row)">Edit</button>
+                                  <button class="btn btn-sm btn-outline-danger" (click)='changeView("delete",row)'>Delete</button>
+
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-lg-12" *ngIf="view == 'add'">
+      <div class="card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <h5 class="card-title">Course</h5>
+                  </div>
+                  <div class="col-sm-6 text-right" style="text-align: right;">
+                      <button class="btn btn-outline-dark float-right"  (click)="changeView('default',null)"> Back </button>
+
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <form class="form-sample" [formGroup]="courseFormAdd">
+                          <div class="row">
+                              <div class="col-sm-6">
+                                  <div class="form-group">
+                                      <label class="label">Title</label>
+                                      <input type="text" class="form-control" id="title" placeholder="title" formControlName="title">
+                                  </div>
+                              </div>
+                              <div class="col-sm-6">
+                                  <div class="form-group">
+
+                                      <label class="label">Description</label>
+                                      <input type="text" class="form-control" placeholder="description" formControlName="description">
+                                  </div>
+                              </div>
+
+                          </div>
+
+                      </form>
+                      <button class="btn btn-outline-success float-right ml-1" (click)="createCourse()"> Create </button>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
+  <div class="col-lg-12" *ngIf="view == 'edit'">
+      <div class="card">
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <h5 class="card-title">Course</h5>
+                  </div>
+                  <div class="col-sm-6 text-right" style="text-align: right;">
+                      <button class="btn btn-outline-dark float-right "  (click)="changeView('default',null)"> Back </button>
+
+
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-12">
+                      <form class="form-sample" [formGroup]="courseFormEdit">
+
+                        <div class="row">
+                          <div class="col-sm-6">
+                              <div class="form-group">
+                                  <label class="label">Title</label>
+                                  <input type="text" class="form-control" id="title" placeholder="title" formControlName="title">
+                              </div>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="form-group">
+
+                                  <label class="label">Description</label>
+                                  <input type="text" class="form-control" placeholder="description" formControlName="description">
+                              </div>
+                          </div>
+
+                      </div>
+                          <button class="btn btn-outline-success float-right ml-1" (click)="updateCourse()"> Update </button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
