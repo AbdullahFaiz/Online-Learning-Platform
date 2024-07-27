@@ -1,27 +1,62 @@
 # lms
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.4.
+#Project Overview:
 
-## Development server
+Online Learning Platform: A web application for students to enroll in courses and for administrators to manage courses, students, and enrollments.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Technology Stack: 
+  Backend: Spring Boot, MySQL 
+  Frontend: Angular 
+  API Documentation: Swagger
 
-## Code scaffolding
+Key Features: 
+  User Authentication and Authorization 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+  Course Management (CRUD operations) 
+  Student Management (CRUD operations) 
+  Enrollment Management (CRUD operations) 
+  Student Portal (Course listing, enrollment) 
+  Admin Panel (Course, student managment)
 
-## Build
+## Designing the System Backend (Spring Boot)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  Security: Implement JWT-based authentication and authorization.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  Models: User (with roles: student, admin) Course (id, title, description, etc.) Student (id, name, email, etc.) Enrollment (id, student, course, enrollmentDate)
 
-## Running end-to-end tests
+  Repositories: UserRepository CourseRepository StudentRepository EnrollmentRepository
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+  Services: UserService CourseService StudentService EnrollmentService
 
-## Further help
+  Controllers: AuthController (for login, registration) StudentController (for student-related endpoints) CourseController (for course-related endpoints) EnrollmentController (for enrollment-related endpoints) AdminController (for admin-specific endpoints)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+##Backend Project Setup
+
+ **Prerequisites** 
+   Java 8 
+   Maven
+   MySQL Database
+
+## Setup
+  Clone the repository 
+  Update the database connection details in the application.properties or application.yml file. 
+  Maven Build the project 
+  Start the Application
+  Make a GET request to the endpoint `http://localhost:8080/createAdmin` to create an admin user with Username "Admin" and "Ab@12345" as password. 
+  The backend services will be accessible at `http://localhost:8080` once started.
+
+##Frontend Project Setup 
+
+
+**Prerequisites** 
+  Node.js 
+  npm 
+  Angular
+
+## Setup
+  Clone the repository 
+  Navigate to the project directory 
+  Install Dependencies using `npm install` command 
+  Start the development server using `ng serve` command 
+  The Angular frontend services wil be accessible at `http://localhost:4200` once started.
