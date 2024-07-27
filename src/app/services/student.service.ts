@@ -17,6 +17,12 @@ export class StudentService {
         'Access-Control-Allow-Origin'   : '*'
     })
 };
+httpOptions2 = {
+  headers: new HttpHeaders({
+      'Content-Type'                  : 'application/json',
+      'Access-Control-Allow-Origin'   : '*'
+  })
+};
 
 constructor(
     private router              : Router,
@@ -46,10 +52,11 @@ private handleError(error: HttpErrorResponse) {
 }
 
 create(student : Student){
-    return this.httpClient.post(this.apiUrl, student, this.httpOptions).pipe(
+    return this.httpClient.post(this.apiUrl, student, this.httpOptions2).pipe(
         catchError(this.handleError)
     );
 }
+
 
 update(student : any){
   const token = this.tokenStorageService.getToken();

@@ -5,35 +5,84 @@
   <div class="text-center mt-4 name">
       LMS
   </div>
-  <form [formGroup]="loginForm" >
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="email" formControlName="username" class="form-control" id="username"  
-   required>
-      <div *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)" class="alert alert-danger">
-        <div *ngIf="loginForm.get('username')?.errors?.['required']">Username  
-   is required</div>
-        <div *ngIf="loginForm.get('username')?.errors?.['email']">Invalid  
-   email format</div>
+  <ng-container *ngIf="loginView">
+    <form [formGroup]="loginForm" >
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="email" formControlName="username" class="form-control" id="username"  
+     required>
+        <div *ngIf="loginForm.get('username')?.invalid && (loginForm.get('username')?.dirty || loginForm.get('username')?.touched)" class="alert alert-danger">
+          <div *ngIf="loginForm.get('username')?.errors?.['required']">Username  
+     is required</div>
+          <div *ngIf="loginForm.get('username')?.errors?.['email']">Invalid  
+     email format</div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <span class="far fa-user"></span>
-      <input type="password" formControlName="password" class="form-control"  
-   id="password" required>
-      <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="alert  
-   alert-danger">
-        <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
-        <div  
-   *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <span class="far fa-user"></span>
+        <input type="password" formControlName="password" class="form-control"  
+     id="password" required>
+        <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="alert  
+     alert-danger">
+          <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+          <div  
+     *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</div>
+        </div>
       </div>
+      <button type="button" class="btn btn-primary mt-2" (click)="login()" >Login</button>
+     <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
     </div>
-    <button type="button" class="btn btn-primary mt-2" (click)="login()"  [disabled]="loginForm.invalid">Login</button>
-   <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
+    </form>
+  </ng-container>
+  <ng-container *ngIf="!loginView">
+    <form class="form-sample" [formGroup]="studentFormAdd">
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="form-group">
+                  <label class="label">Name</label>
+                  <input type="text" class="form-control" id="name" placeholder="name" formControlName="name">
+              </div>
+          </div>
+          <div class="col-sm-12">
+              <div class="form-group">
+
+                  <label class="label">Age</label>
+                  <input type="number" class="form-control" placeholder="age" formControlName="age">
+              </div>
+          </div>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="label">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="username" formControlName="username">
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+
+                <label class="label">Email</label>
+                <input type="text" class="form-control" placeholder="email" formControlName="email">
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+          <div class="form-group">
+              <label class="label">Password</label>
+              <input type="text" class="form-control" id="password" placeholder="password" formControlName="password">
+          </div>
+      </div>
+
+      <button type="button" class="btn btn-primary mt-2" (click)="createStudent()" >Register</button>
+
   </div>
   </form>
+  </ng-container>
   <!-- <form class="p-3 mt-3">
       <div class="form-field d-flex align-items-center">
           <span class="far fa-user"></span>
@@ -46,6 +95,6 @@
       <button class="btn mt-3">Login</button>
   </form> -->
   <div class="text-center fs-6">
-      <a href="#">Forget password?</a> or <a href="#">Sign up</a>
+    <button type="button" style="background-color: #112f63;" class="btn btn-primary mt-2" (click)="changeView()" ><span *ngIf="loginView">Register as Student</span><span *ngIf="!loginView">Back to Login</span> </button>
   </div>
 </div>

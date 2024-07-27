@@ -60,6 +60,11 @@ export class InnerComponent {
 
   }
 
+  logout(){
+    this.authService.logout();
+  }
+
+
   toggleMenu() {
     if (this.isMobile) {
       this.sidenav.toggle();
