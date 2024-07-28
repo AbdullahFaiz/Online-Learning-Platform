@@ -11,7 +11,7 @@ import { Student } from '../models/student.model';
 const apiUrl = 'http://localhost:8080/api/auth';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin'   : '*' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Injectable({ providedIn: 'root' })

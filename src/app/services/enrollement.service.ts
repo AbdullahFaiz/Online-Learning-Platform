@@ -13,8 +13,7 @@ export class EnrollmentService {
 
   httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type'                  : 'application/json',
-        'Access-Control-Allow-Origin'   : '*'
+        'Content-Type'                  : 'application/json'
     })
 };
 
@@ -25,8 +24,6 @@ constructor(
       const jwtToken = this.tokenStorageService.getToken();
       this.httpOptions = {
         headers: new HttpHeaders({
-            'Content-Type'                  : 'application/json',
-            'Access-Control-Allow-Origin'   : '*',
             'Authorization'                 : `Bearer ${jwtToken}`
         })
     };
@@ -74,7 +71,6 @@ delete(enrollmentId : any){
   const token = this.tokenStorageService.getToken();
     const httpOptions2 = {
       headers: new HttpHeaders({
-        'Access-Control-Allow-Origin'   : '*',
         'Authorization': `Bearer ${token}`
       })
     };

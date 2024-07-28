@@ -13,16 +13,10 @@ export class StudentService {
 
   httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type'                  : 'application/json',
-        'Access-Control-Allow-Origin'   : '*'
+        'Content-Type'                  : 'application/json'
     })
 };
-httpOptions2 = {
-  headers: new HttpHeaders({
-      'Content-Type'                  : 'application/json',
-      'Access-Control-Allow-Origin'   : '*'
-  })
-};
+
 
 constructor(
     private router              : Router,
@@ -31,8 +25,6 @@ constructor(
       const jwtToken = this.tokenStorageService.getToken();
       this.httpOptions = {
         headers: new HttpHeaders({
-            'Content-Type'                  : 'application/json',
-            'Access-Control-Allow-Origin'   : '*',
             'Authorization'                 : `Bearer ${jwtToken}`
         })
     };
@@ -52,7 +44,7 @@ private handleError(error: HttpErrorResponse) {
 }
 
 create(student : Student){
-    return this.httpClient.post(this.apiUrl, student, this.httpOptions2).pipe(
+    return this.httpClient.post(this.apiUrl, student, this.httpOptions).pipe(
         catchError(this.handleError)
     );
 }
@@ -81,7 +73,6 @@ delete(studentId : any){
   const token = this.tokenStorageService.getToken();
     const httpOptions2 = {
       headers: new HttpHeaders({
-        'Access-Control-Allow-Origin'   : '*',
         'Authorization': `Bearer ${token}`
       })
     };
