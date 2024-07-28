@@ -86,7 +86,7 @@ export class StudentComponent {
         error => {
           Swal.fire({
             title: "Failed",
-            text: "Student Creation Unsuccessful!",
+            text: error,
             icon: "error"
           });
         });
@@ -128,7 +128,7 @@ export class StudentComponent {
          error => {
           Swal.fire({
             title: "Failed",
-            text: "Student Update Unsuccessful!",
+            text: error,
             icon: "error"
           });
         });
@@ -156,7 +156,7 @@ export class StudentComponent {
         error => {
          Swal.fire({
            title: "Failed",
-           text: "Student Update Unsuccessful!",
+           text: error,
            icon: "error"
          });
        });

@@ -76,7 +76,7 @@ export class AdminComponent {
         error => {
           Swal.fire({
             title: "Failed",
-            text: "Admin Creation Unsuccessful!",
+            text: error,
             icon: "error"
           });
         });
@@ -114,7 +114,7 @@ export class AdminComponent {
          error => {
           Swal.fire({
             title: "Failed",
-            text: "Admin Update Unsuccessful!",
+            text: error,
             icon: "error"
           });
         });
@@ -142,7 +142,7 @@ export class AdminComponent {
         error => {
          Swal.fire({
            title: "Failed",
-           text: "Admin Update Unsuccessful!",
+           text: error,
            icon: "error"
          });
        });

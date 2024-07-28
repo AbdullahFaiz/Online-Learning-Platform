@@ -71,7 +71,7 @@ export class CourseComponent {
         error => {
           Swal.fire({
             title: "Failed",
-            text: "Course Creation Unsuccessful!",
+            text: error,
             icon: "error"
           });
         });
@@ -107,7 +107,7 @@ export class CourseComponent {
          error => {
           Swal.fire({
             title: "Failed",
-            text: "Course Update Unsuccessful!",
+            text: error,
             icon: "error"
           });
         });
@@ -135,7 +135,7 @@ export class CourseComponent {
         error => {
          Swal.fire({
            title: "Failed",
-           text: "Course Update Unsuccessful!",
+           text: error,
            icon: "error"
          });
        });

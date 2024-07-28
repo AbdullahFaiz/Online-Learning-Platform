@@ -112,7 +112,7 @@ export class EnrollmentComponent {
          error => {
           Swal.fire({
             title: "Failed",
-            text: "Enrollment Update Unsuccessful!",
+            text: error,
             icon: "error"
           });
         });
@@ -134,7 +134,7 @@ export class EnrollmentComponent {
         error => {
          Swal.fire({
            title: "Failed",
-           text: "Enrollment Removal Unsuccessful!",
+           text: error,
            icon: "error"
          });
        });
